@@ -147,7 +147,7 @@ test("TC8_Verify Admin Profile details", async ({ logedin, adminp }) => {
         
     })
 
-    test.only("TC13_total visitors till date",async({logedin,totalcount})=>{
+    test("TC13_total visitors till date",async({logedin,totalcount})=>{
         await expect(totalcount.tcount).toBeVisible()
         let count=await totalcount.tcount.innerText()
         console.log("total visitors till date",count);
