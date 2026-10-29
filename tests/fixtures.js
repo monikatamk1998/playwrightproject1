@@ -15,6 +15,7 @@ import logoutpage from "../PageObjectModel/logout";
 import todayvcount from "../PageObjectModel/todaysvisitorcount";
 import yesterdayvcount from "../PageObjectModel/yesterdayvisitorcount";
 import lastsevendvisitor from "../PageObjectModel/last7daysvsitor";
+import totalvcounttilldate from "../PageObjectModel/totalvisitorcount";
 
 export const test = base.extend({
 
@@ -84,6 +85,11 @@ export const test = base.extend({
 
     lastsevenvisitor:async({logedin},use)=>{
         await use(new lastsevendvisitor(logedin));
+
+    },
+
+    totalcount:async({logedin},use)=>{
+        await use(new totalvcounttilldate(logedin));
     },
 
     logout: async ({ logedin }, use) => {

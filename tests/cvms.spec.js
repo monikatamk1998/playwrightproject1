@@ -132,12 +132,27 @@ test("TC8_Verify Admin Profile details", async ({ logedin, adminp }) => {
 
     });
 
-    test("TC12_Yesterday's Visitors Count",async({logedin,lastsevenvisitor})=>{
+    test("TC12_Last 7 Days Visitors",async({logedin,lastsevenvisitor})=>{
         await expect(lastsevenvisitor.lsdvisitor).toBeVisible()
         let count=await lastsevenvisitor.lsdvisitor.innerText()
         console.log("Last 7 Days Visitors",count);
 
         
+        await lastsevenvisitor.visitorbwdatelink.click();
+        await lastsevenvisitor.fromdate.fill(testData5.fdate);
+        await lastsevenvisitor.todate.fill(testData5.tdate);
+        await lastsevenvisitor.submitbutton.click();
+
+
+        
+    })
+
+    test.only("TC13_total visitors till date",async({logedin,totalcount})=>{
+        await expect(totalcount.tcount).toBeVisible()
+        let count=await totalcount.tcount.innerText()
+        console.log("total visitors till date",count);
+        
+
     })
 
 
