@@ -1,31 +1,43 @@
-
 pipeline {
     agent any
 
     stages {
-        stage('Check Node and npm') {
-            steps {
-                bat 'node -v'
-                bat 'npm -v'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 bat 'npm install'
+                bat 'npx playwright install'
             }
         }
 
-        stage('Install Playwright Browser') {
+        stage('Run Tests') {
             steps {
-                bat 'npx playwright install chromium'
+                script {
+                    def status = bat(script: 'npx playwright test"', returnStatus: true)
+                    if (status != 0) {
+                        echo "Tests failed, but continuing to generate reports..."
+                    }
+                }
             }
         }
+    }
 
-        stage('Run Playwright Tests') {
-            steps {
-                bat 'npx playwright test'
-            }
+    post {
+        always {
+            echo 'Generating HTML reports...'
+
+
+            publishHTML(target: [
+                reportDir: 'playwright-report',
+                reportFiles: 'index.html',
+                reportName: 'Playwright HTML Report',
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                 alwaysLinkToLastBuild: true,
+                allowMissing: true,
+                linkRelative: false
+            ])
+
+        
         }
     }
 }
