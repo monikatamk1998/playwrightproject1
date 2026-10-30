@@ -17,6 +17,8 @@ pipeline {
                         script: 'npx playwright test',
                         returnStatus: true
                     )
+                    bat 'dir'
+                    bat 'dir playwright-report'
 
                     if (status != 0) {
                         echo 'Tests failed, but continuing to generate reports...'
