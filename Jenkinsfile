@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     def status = bat(
-                        script: 'npx playwright test',
+                        script: 'npx playwright test --reporter=html',
                         returnStatus: true
                     )
                     bat 'dir'
